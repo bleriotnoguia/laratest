@@ -78,7 +78,7 @@ Content-Type: application/json
 
 ### Login with email
 
-Note : Only the user whose email auth authorized property is set to true can use this method. This field can be found in the users table.
+Note : Only the user whose `email_auth_authorized` property is set to true can use this method. The field `email_auth_authorized` can be found in the users table.
 
 - Url: http://localhost:8000/api/email/login
 - Method : POST
