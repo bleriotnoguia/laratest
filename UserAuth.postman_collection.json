@@ -1,12 +1,12 @@
 {
 	"info": {
 		"_postman_id": "5ca78e02-8457-4957-88b1-6aaf370ca60c",
-		"name": "User Auth",
+		"name": "UserAuth",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Login user - Auth",
+			"name": "Log user",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -43,7 +43,7 @@
 			"response": []
 		},
 		{
-			"name": "Login user - only email",
+			"name": "Log user - only email",
 			"request": {
 				"method": "POST",
 				"header": [],
