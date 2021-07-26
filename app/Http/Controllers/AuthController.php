@@ -15,7 +15,8 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         $fields = $request->validate([
-            'email' => 'required|string'
+            'email' => 'required|string',
+            'password' => 'string'
         ]);
 
         // Check email
@@ -27,7 +28,7 @@ class AuthController extends Controller
             ], 401);
         }
         
-        if($request->password){
+        if(isset($fields['password'])){
             if(!Hash::check($fields['password'], $user->password)){
                 return response([
                     'message' => 'Bad creds'
