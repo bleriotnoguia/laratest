@@ -50,6 +50,12 @@ MAIL_PASSWORD=null // or xxxxxxxxx
 MAIL_ENCRYPTION=null // or xxxxxxxxx
 ```
 
+Open your database client and grab the password oauth client from the oauth_clients table, get the client id and secret and put them in the .env file
+```
+PASSPORT_CLIENT_ID=2
+PASSPORT_CLIENT_SECRET=xxxxxxx
+```
+
 Run the command below then open http://localhost:8000/
 ```
 php artisan serve
