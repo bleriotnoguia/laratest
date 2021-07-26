@@ -63,7 +63,7 @@
 					]
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/api/email/login",
+					"raw": "127.0.0.1:8000/api/login",
 					"host": [
 						"127",
 						"0",
@@ -73,7 +73,6 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"email",
 						"login"
 					]
 				}
@@ -99,7 +98,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/email/login/j1JVV7bvWgJlEyQQT08Eng7ZyLInpR",
+					"raw": "http://127.0.0.1:8000/api/link/auth/kdEvrNq8lQ2pouvPiX4da4hGhoRGzS",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -110,9 +109,9 @@
 					"port": "8000",
 					"path": [
 						"api",
-						"email",
-						"login",
-						"j1JVV7bvWgJlEyQQT08Eng7ZyLInpR"
+						"link",
+						"auth",
+						"kdEvrNq8lQ2pouvPiX4da4hGhoRGzS"
 					]
 				}
 			},
