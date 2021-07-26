@@ -21,8 +21,8 @@ class BaseAuthResolver
     {
         $args = collect($args);
         $credentials = $args->except('directive')->toArray();
-        $credentials['client_id'] = $args->get('client_id', config('bleriot-graphql-passport.client_id'));
-        $credentials['client_secret'] = $args->get('client_secret', config('bleriot-graphql-passport.client_secret'));
+        $credentials['client_id'] = $args->get('client_id', config('graphql-passport.client_id'));
+        $credentials['client_secret'] = $args->get('client_secret', config('graphql-passport.client_secret'));
         $credentials['grant_type'] = $grantType;
         
         return $credentials;

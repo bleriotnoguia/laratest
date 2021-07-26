@@ -54,7 +54,7 @@ class Login extends BaseAuthResolver
         }
 
         return $model::query()
-            ->where(config('bleriot-graphql-passport.username'), $username)
+            ->where(config('graphql-passport.username'), $username)
             ->first();
     }
 }
