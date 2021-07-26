@@ -17,8 +17,7 @@ use App\Http\Controllers\AuthController;
 
 // Public routes
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/email/login', [AuthController::class, 'authLink']);
-Route::get('/email/login/{token}', [AuthController::class, 'loginWithEmail']);
+Route::get('/link/auth/{token}', [AuthController::class, 'authLink'])->name('auth_link');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

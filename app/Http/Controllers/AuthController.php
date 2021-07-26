@@ -15,27 +15,6 @@ class AuthController extends Controller
 {
     public function login(Request $request){
         $fields = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string'
-        ]);
-
-        // Check email
-        $user = User::where('email', $fields['email'])->first();
-
-        if(!$user || !Hash::check($fields['password'], $user->password)){
-            return response([
-                'message' => 'Bad creds'
-            ], 401);
-        }
-
-        $token = $user->createToken('myapptoken');
-        $user->token = $token->accessToken;
-
-        return response($user, 201);
-    }
-    
-    public function authLink(Request $request){
-        $fields = $request->validate([
             'email' => 'required|string'
         ]);
 
@@ -47,36 +26,48 @@ class AuthController extends Controller
                 'message' => 'Bad creds'
             ], 401);
         }
-
-        try {
-            // Check authorization
-            if($user->email_auth_authorized){
-                $rdm_token = Str::random(30);
-                $email_auth = DB::table('email_auth')->insert(['email' => $user->email, 'token' => $rdm_token, 'expires_at' => Carbon::now()->addMinutes(15)]);
-            }else{
+        
+        if($request->password){
+            if(!Hash::check($fields['password'], $user->password)){
                 return response([
-                    'message' => 'You are not authorize to login only by email'
+                    'message' => 'Bad creds'
                 ], 401);
             }
-            $user->auth_token = $rdm_token;
-
-            // Send authentication link
-            $user->notify(new AuthLink($user));
-
-            return response([
-                'message' => 'A authentication link was send to you email address'
-            ], 201);
-
-        } catch (\Throwable $th) {
-            //throw $th;
-            return response([
-                'message' => $th->getMessage()
-            ], 500);
+        }else{
+            try {
+                // Check authorization
+                if($user->email_auth_authorized){
+                    $rdm_token = Str::random(30);
+                    $email_auth = DB::table('email_auth')->insert(['email' => $user->email, 'token' => $rdm_token, 'expires_at' => Carbon::now()->addMinutes(15)]);
+                }else{
+                    return response([
+                        'message' => 'You are not authorize to login only by email'
+                    ], 401);
+                }
+                $user->auth_token = $rdm_token;
+    
+                // Send authentication link
+                $user->notify(new AuthLink($user));
+    
+                return response([
+                    'message' => 'A authentication link was send to you email address'
+                ], 201);
+    
+            } catch (\Throwable $th) {
+                //throw $th;
+                return response([
+                    'message' => $th->getMessage()
+                ], 500);
+            }
         }
+
+        $token = $user->createToken('myapptoken');
+        $user->token = $token->accessToken;
+
+        return response($user, 201);
     }
 
-    public function loginWithEmail(Request $request, $token){
-
+    public function authLink(Request $request, $token){
         $email_auth = DB::table('email_auth')->where('token', $request->token)->first();
 
         if(!$email_auth || Carbon::now()->greaterThan($email_auth->expires_at)){

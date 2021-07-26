@@ -40,11 +40,10 @@ class AuthLink extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/api/email/login/'.$notifiable->auth_token);
         return (new MailMessage)
                 ->subject('Sign into you account')
                 ->line('Please click the button below to login.')
-                ->action('Login', url($url))
+                ->action('Login', route('auth_link', $notifiable->auth_token))
                 ->line('This link will only be valid for 15 minutes')
                 ->line('Thank you for using our application!');
     }
